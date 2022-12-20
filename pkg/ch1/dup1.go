@@ -17,7 +17,8 @@ func Dup1() {
 			lineCounts[input.Text()] = 1
 		}
 		if input.Err() != nil {
-			_ = fmt.Errorf("error: %w\n", input.Err())
+			err := fmt.Errorf("error: %w\n", input.Err())
+			fmt.Println(err)
 		}
 	}
 
