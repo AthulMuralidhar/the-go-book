@@ -8,12 +8,19 @@ import (
 func Echo2() {
 	var s string
 	const separator = " "
-	for _, arg := range os.Args[1:] {
-		s += arg + separator
+	argsArray := os.Args[1:]
+
+	if CheckIfTesting() {
+		argsArray = []string{TestingEnv}
 	}
 
-	fmt.Println("=== Echo2 ===")
-	fmt.Printf("returned string: %s", s)
-	fmt.Println("=== === ===")
+	for _, arg := range argsArray {
+		s += arg + separator
+	}
+	if !CheckIfTesting() {
+		fmt.Println("=== Echo2 ===")
+		fmt.Printf("returned string: %s", s)
+		fmt.Println("=== === ===")
+	}
 
 }
