@@ -12,5 +12,6 @@ func main() {
 	//ch1.Echo3()
 	//ch1.Ex1_1()
 	//ch1.Ex1_2()
-	ch1.Dup1()
+	//ch1.Dup1()
+	ch1.Dup2()
 }

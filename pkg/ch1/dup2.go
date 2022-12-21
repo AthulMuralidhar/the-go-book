@@ -19,9 +19,13 @@ func Dup2() {
 	} else {
 		err := handleFileCountLines(files, lineCounts)
 		if err != nil {
-			fmt.Printf("error from countLines: %v", err)
+			fmt.Printf("error from handleFileCountLines: %v", err)
 			return
 		}
+	}
+
+	for line, num := range lineCounts {
+		fmt.Printf("count: %d\t line: %s\n", num, line)
 	}
 }
 
@@ -38,14 +42,22 @@ func countLines(file *os.File, counts map[string]int) error {
 	if err != nil {
 		return err
 	}
+	return nil
 }
 
 func handleFileCountLines(files []string, counts map[string]int) error {
 	for _, file := range files {
 		fOpened, err := os.Open(file)
 		if err != nil {
-			fmt.Fprintf()
+			fmt.Fprintf(os.Stderr, "dup2: %v\n", err)
+			continue
 		}
-
+		err = countLines(fOpened, counts)
+		if err != nil {
+			fmt.Println("error during countLines, exiting...")
+			return err
+		}
+		fOpened.Close()
 	}
+	return nil
 }
