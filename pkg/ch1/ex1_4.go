@@ -32,16 +32,14 @@ func Ex1_4() {
 					lineCounts[input.Text()] = 1
 				}
 				if input.Err() != nil {
-					err := fmt.Errorf("error: %w\n", input.Err())
+					err := fmt.Errorf("error during input.Scan(): %w\n", input.Err())
 					fmt.Println(err)
 				}
 			}
-			if err != nil {
-				fmt.Println("error during countLines, exiting...")
-			}
 			err = fOpened.Close()
 			if err != nil {
-				return
+				err := fmt.Errorf("error during file.Close(): %w\n", input.Err())
+				fmt.Println(err)
 			}
 		}
 	}
