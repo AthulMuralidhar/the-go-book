@@ -1,6 +1,9 @@
 package main
 
-import "github.com/AthulMuralidhar/the-go-book/pkg/ch1"
+import (
+	"github.com/AthulMuralidhar/the-go-book/pkg/ch1"
+	"os"
+)
 
 func main() {
 	//ch1.HelloWorld()
@@ -14,5 +17,6 @@ func main() {
 	//ch1.Ex1_2()
 	//ch1.Dup1()
 	//ch1.Dup2()
-	ch1.Ex1_4()
+	//ch1.Ex1_4()
+	ch1.LissaJous1(os.Stdout)
 }
