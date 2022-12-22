@@ -1,50 +1,46 @@
 package ch1
 
 import (
-	"bufio"
 	"fmt"
+	"io/ioutil"
 	"os"
+	"strings"
 )
 
 func Ex1_4() {
 	lineCounts := make(map[string]int)
-	files := os.Args[1:]
 	duplicateFiles := make(map[string]bool)
 
-	if len(files) == 0 {
-		err := fmt.Errorf("error: we dont do without files now")
-		fmt.Println(err)
-	} else {
-		for _, file := range files {
-			fOpened, err := os.Open(file)
-			if err != nil {
-				fmt.Printf("dup2: %v\n", err)
-				continue
-			}
-			input := bufio.NewScanner(os.Stdin)
-
-			for input.Scan() {
-				if _, ok := lineCounts[input.Text()]; ok {
+	for _, file := range os.Args[1:] {
+		data, err := ioutil.ReadFile(file)
+		if err != nil {
+			err := fmt.Errorf("error from Dup3 during ioutil,ReadFile: %w", err)
+			fmt.Println(err)
+			continue
+		}
+		for _, line := range strings.Split(string(data), "\n") {
+			if val, ok := lineCounts[line]; ok {
+				lineCounts[line]++
+				if val > 1 {
 					duplicateFiles[file] = true
-					lineCounts[input.Text()]++
-				} else {
-					duplicateFiles[file] = false
-					lineCounts[input.Text()] = 1
 				}
-				if input.Err() != nil {
-					err := fmt.Errorf("error during input.Scan(): %w\n", input.Err())
-					fmt.Println(err)
-				}
-			}
-			err = fOpened.Close()
-			if err != nil {
-				err := fmt.Errorf("error during file.Close(): %w\n", input.Err())
-				fmt.Println(err)
+			} else {
+				lineCounts[line] = 1
 			}
 		}
 	}
 	for f, duplicate := range duplicateFiles {
-		fmt.Printf("filename: %s \t duplicate: %t", f, duplicate)
+		fmt.Printf("filename: %s \t duplicate: %t\n", f, duplicate)
+	}
+
+	fmt.Println()
+	fmt.Println()
+	fmt.Println()
+	fmt.Println()
+	fmt.Println()
+
+	for line, num := range lineCounts {
+		fmt.Printf("count: %d\t line: %s\n", num, line)
 	}
 
 }

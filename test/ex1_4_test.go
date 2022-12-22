@@ -13,30 +13,44 @@ func TestEx1_4(t *testing.T) {
 
 	//f := farm.New([]string{"Cow", "Horse"})
 	//g.Expect(0).To(gomega.Equal(0))
+	temp1, err := setupTempfile()
+	defer func(temp1 *os.File) {
+		err := temp1.Close()
+		if err != nil {
+			log.Panic(err)
+		}
+	}(temp1)
+	if err != nil {
+		log.Panic(err)
+	}
+	temp2, err := setupTempfile()
+	defer func(temp2 *os.File) {
+		err := temp2.Close()
+		if err != nil {
+			log.Panic(err)
+		}
+	}(temp2)
+	if err != nil {
+		log.Panic(err)
+	}
 
 }
-func setup() {
-	content1 := []byte("temporary file's content")
-	tmpfile1, err := ioutil.TempFile("./", "example.*.txt")
+func setupTempfile() (*os.File, error) {
+	content := []byte("temporary file's content")
+	tempfile, err := ioutil.TempFile("./", "example.*.txt")
 	if err != nil {
-		log.Fatal(err)
+		return nil, err
 	}
 
-	defer func(name string) {
-		err := os.Remove(name)
+	if _, err := tempfile.Write(content); err != nil {
+		err := tempfile.Close()
 		if err != nil {
-
+			return nil, err
 		}
-	}(tmpfile1.Name()) // clean up
-
-	if _, err := tmpfile1.Write(content1); err != nil {
-		err := tmpfile1.Close()
-		if err != nil {
-			return
-		}
-		log.Fatal(err)
+		return nil, err
 	}
-	if err := tmpfile1.Close(); err != nil {
-		log.Fatal(err)
+	if err := tempfile.Close(); err != nil {
+		return nil, err
 	}
+	return tempfile, nil
 }
