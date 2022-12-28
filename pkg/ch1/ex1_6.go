@@ -10,20 +10,12 @@ import (
 	"math/rand"
 )
 
-const OscillatorRevolutions = 5
-const AngularResolution = 0.001
-const ImageCanvasSize = 100
-const NumberOfAnimationFrames = 64
-
-const BlackIndex = 0
-const WhiteIndex = 1
-const DelayBetweenFrames = 8
-
-var palette = []color.Color{color.Black, color.White}
+var changingColor = color.RGBA{R: 0, G: 0, B: 0, A: 0}
+var changingPallet = []color.Color{color.Black, changingColor}
 
 // The colours are beautifully switched i.e gif is in dark mode :)
 
-func LissaJous1(out io.Writer) {
+func EX1_6(out io.Writer) {
 	frequency := rand.Float64() * 3.0
 	animation := gif.GIF{
 		LoopCount: NumberOfAnimationFrames,
@@ -32,7 +24,7 @@ func LissaJous1(out io.Writer) {
 	phase := 0.0
 	for i := 0; i < NumberOfAnimationFrames; i++ {
 		rectangle := image.Rect(0, 0, 2*ImageCanvasSize+1, 2*ImageCanvasSize+1)
-		img := image.NewPaletted(rectangle, palette)
+		img := image.NewPaletted(rectangle, changingPallet)
 		for t := 0.0; t < OscillatorRevolutions*2*math.Pi; t += AngularResolution {
 			x := math.Sin(t)
 			y := math.Sin(t*frequency + phase)
@@ -42,6 +34,7 @@ func LissaJous1(out io.Writer) {
 		phase += 0.1
 		animation.Delay = append(animation.Delay, DelayBetweenFrames)
 		animation.Image = append(animation.Image, img)
+		//changingColor.R += int(rand.Uint32() * 255)
 	}
 	err := gif.EncodeAll(out, &animation)
 	if err != nil {

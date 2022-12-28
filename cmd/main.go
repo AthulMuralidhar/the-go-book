@@ -18,5 +18,6 @@ func main() {
 	//ch1.Dup1()
 	//ch1.Dup2()
 	//ch1.Ex1_4()
-	ch1.LissaJous1(os.Stdout)
+	//ch1.LissaJous1(os.Stdout)
+	ch1.EX1_5(os.Stdout)
 }
