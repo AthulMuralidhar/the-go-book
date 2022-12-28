@@ -2,7 +2,6 @@ package main
 
 import (
 	"github.com/AthulMuralidhar/the-go-book/pkg/ch1"
-	"os"
 )
 
 func main() {
@@ -20,5 +19,6 @@ func main() {
 	//ch1.Ex1_4()
 	//ch1.LissaJous1(os.Stdout)
 	//ch1.EX1_5(os.Stdout)
-	ch1.EX1_6(os.Stdout)
+	//ch1.EX1_6(os.Stdout)
+	ch1.Fetch1()
 }
