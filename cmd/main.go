@@ -26,5 +26,6 @@ func main() {
 	//ch1.Ex1_9()
 	//ch1.FetchAll()
 	//ch1.Server1()
-	ch1.Server2()
+	//ch1.Server2()
+	ch1.Ex1_12()
 }
