@@ -6,11 +6,20 @@ import (
 	"os"
 )
 
+type IssueSearchResult {
+	
+}
+
 func GithubIssues() {
-	reult, err := searchIssues(os.Args[1:])
+	result, err := searchIssues(os.Args[1:])
 	if err != nil {
 		log.Fatal(err)
 	}
+	for _, item := range result.Items {
+		fmt.Printf("%d \t %s \t %s\n"item.Number, item.User.Login, item.Title)
+	}
+}
 
-	fmt.Printf("issues: ")
+func searchIssues(strings []string) (interface{}, interface{}) {
+	
 }
