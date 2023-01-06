@@ -2,6 +2,7 @@ package ch5
 
 import (
 	"fmt"
+	"golang.org/x/net/html"
 	"io"
 	"log"
 	"net/http"
@@ -25,6 +26,7 @@ func crawl(url string) []string {
 }
 
 func extract(url string) ([]string, error) {
+	var links []string
 	response, err := http.Get(url)
 	if err != nil {
 		return nil, err
@@ -32,10 +34,43 @@ func extract(url string) ([]string, error) {
 	defer func(Body io.ReadCloser) {
 		err := Body.Close()
 		if err != nil {
-			
+			log.Fatal(err)
 		}
 	}(response.Body)
 
+	if response.StatusCode != http.StatusOK {
+		return nil, fmt.Errorf("error during http.Get: response :%s \t status code: %s", response, response.StatusCode)
+	}
+	document, err := html.Parse(response.Body)
+	if err != nil {
+		return nil, err
+	}
+	visitNode := func(n *html.Node) {
+		if n.Type == html.ElementNode && n.Data == "a" {
+			for i, attribute := range n.Attr {
+				if attribute.Key != "href" {
+					continue
+				}
+				link, err := response.Request.URL.Parse(attribute.Val)
+				if err != nil {
+					continue
+				}
+				links = append(links, link)
+			}
+		}
+	}
+	forEachNode(document, visitNode, nil)
+	return links, nil
+}
+
+func forEachNode(node *html.Node, pre, post func(n *html.Node)) {
+	if pre != nil {
+		pre(node)
+	}
+
+	for c := node.FirstChild; c != nil; c = c.NextSibling {
+		forEachNode(c, pre, post)
+	}
 }
 
 func breadthFirst(f func(item string) []string, worklist []string) error {
