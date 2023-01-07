@@ -17,7 +17,7 @@ func Crawler() {
 }
 
 func crawl(url string) []string {
-	fmt.Printf("url: \t %s", url)
+	fmt.Printf("target url: \t %s \n\n\n", url)
 	list, err := extract(url)
 	if err != nil {
 		log.Println(err)
@@ -42,12 +42,13 @@ func extract(url string) ([]string, error) {
 		return nil, fmt.Errorf("error during http.Get: response :%s \t status code: %s", response, response.StatusCode)
 	}
 	document, err := html.Parse(response.Body)
+
 	if err != nil {
 		return nil, err
 	}
 	visitNode := func(n *html.Node) {
 		if n.Type == html.ElementNode && n.Data == "a" {
-			for i, attribute := range n.Attr {
+			for _, attribute := range n.Attr {
 				if attribute.Key != "href" {
 					continue
 				}
@@ -55,11 +56,12 @@ func extract(url string) ([]string, error) {
 				if err != nil {
 					continue
 				}
-				links = append(links, link)
+				links = append(links, link.String())
 			}
 		}
 	}
 	forEachNode(document, visitNode, nil)
+
 	return links, nil
 }
 
@@ -70,6 +72,9 @@ func forEachNode(node *html.Node, pre, post func(n *html.Node)) {
 
 	for c := node.FirstChild; c != nil; c = c.NextSibling {
 		forEachNode(c, pre, post)
+	}
+	if post != nil {
+		post(node)
 	}
 }
 
@@ -85,4 +90,8 @@ func breadthFirst(f func(item string) []string, worklist []string) error {
 
 		}
 	}
+	for _, s := range result {
+		fmt.Printf("linK: \t %s \n", s)
+	}
+	return nil
 }
