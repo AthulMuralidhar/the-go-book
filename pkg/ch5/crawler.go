@@ -12,6 +12,7 @@ import (
 func Crawler() {
 	err := breadthFirst(crawl, os.Args[1:])
 	if err != nil {
+		log.Println("logging from Crawler")
 		log.Fatal(err)
 	}
 }
@@ -34,6 +35,7 @@ func extract(url string) ([]string, error) {
 	defer func(Body io.ReadCloser) {
 		err := Body.Close()
 		if err != nil {
+			log.Println("loging from defer in extract")
 			log.Fatal(err)
 		}
 	}(response.Body)

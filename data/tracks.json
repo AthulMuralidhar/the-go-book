@@ -1,0 +1,25 @@
+{
+  "tracks": [
+    {
+      "title": "Go",
+      "artist": "Delilah",
+      "album": "From the roots up",
+      "year": 2012,
+      "length": "3m38s"
+    },
+    {
+      "title": "Go",
+      "artist": "moby",
+      "album": "moby",
+      "year": 1992,
+      "length": "3m37s"
+    },
+    {
+      "title": "Go ahead",
+      "artist": "alicia k",
+      "album": "From the roots up",
+      "year": 2012,
+      "length": "3m38s"
+    }
+  ]
+}
