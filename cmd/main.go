@@ -1,13 +1,12 @@
 package main
 
 import (
-	"github.com/AthulMuralidhar/the-go-book/pkg/ch7"
+	"github.com/AthulMuralidhar/the-go-book/utils"
+	"os"
 )
 
 func main() {
-	//ch4.GithubIssues()
-	//ch4.TextTemplate()
-	//ch4.HTMLTemplate()
-	//ch5.Crawler()
-	ch7.SortingMusic()
+	arg1 := os.Args[1]
+	f := utils.Function{Name: arg1}
+	f.Run()
 }
