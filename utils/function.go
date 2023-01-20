@@ -22,6 +22,10 @@ func (f Function) Run() {
 		ch8.Pipeline1()
 	case f.String() == "Pipeline2":
 		ch8.Pipeline2()
+	case f.String() == "Pipeline3":
+		ch8.Pipeline3()
+	case f.String() == "Thumbnail1":
+		ch8.Thumbnail1()
 	default:
 		log.Fatal("name does not match existing functions")
 	}
