@@ -31,7 +31,8 @@ func (f Function) Run() {
 		ch8.Thumbnail1()
 	case f.String() == "Thumbnail5" || f.String() == strings.ToLower("Thumbnail5"):
 		ch8.Thumbnail5()
-
+	case f.String() == "Thumbnail6" || f.String() == strings.ToLower("Thumbnail6"):
+		ch8.Thumbnail6()
 	default:
 		log.Fatal("name does not match existing functions")
 	}
