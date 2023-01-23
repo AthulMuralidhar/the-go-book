@@ -5,17 +5,34 @@ import (
 	"image"
 	"image/jpeg"
 	"io"
+	"log"
 	"os"
 	"path/filepath"
 	"strings"
 )
 
 func Thumbnail1() {
-	makeThumbnails(nil)
+	makeThumbnails(os.Args[2:])
 }
 
 func makeThumbnails(filenames []string) {
-	
+	ch := make(chan int)
+	for _, filename := range filenames {
+		go func(filename string) {
+			// passing the filename arg here ensures that the filename from the for loop
+			// is the current one and  not the last file in the filenames range
+			_, err := ImageFile(filename)
+			if err != nil {
+				log.Fatal(err)
+			}
+			ch <- 0
+		}(filename)
+	}
+	for range filenames {
+		// this waits for the go routine above to finish
+		// and discards the ressult
+		<-ch
+	}
 }
 
 //src: https://github.com/adonovan/gopl.io/blob/master/ch8/thumbnail/thumbnail.go
@@ -83,5 +100,6 @@ func ImageFile2(outfile, infile string) (err error) {
 func ImageFile(infile string) (string, error) {
 	ext := filepath.Ext(infile) // e.g., ".jpg", ".JPEG"
 	outfile := strings.TrimSuffix(infile, ext) + ".thumb" + ext
+	log.Printf("made thumbnail: %s\n", outfile)
 	return outfile, ImageFile2(outfile, infile)
 }
