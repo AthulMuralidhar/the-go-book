@@ -1,6 +1,7 @@
 package utils
 
 import (
+	"github.com/AthulMuralidhar/the-go-book/pkg/ch5"
 	"log"
 	"strings"
 )
@@ -15,6 +16,8 @@ func (f Function) String() string {
 }
 func (f Function) Run() {
 	switch {
+	case f.String() == "Crawler" || f.String() == strings.ToLower("Crawler"):
+		ch5.Crawler()
 	case f.String() == "Reverb2" || f.String() == strings.ToLower("Reverb2"):
 		ch8.Reverb2()
 	case f.String() == "NetCat3" || f.String() == strings.ToLower("NetCat3"):
@@ -33,6 +36,18 @@ func (f Function) Run() {
 		ch8.Thumbnail5()
 	case f.String() == "Thumbnail6" || f.String() == strings.ToLower("Thumbnail6"):
 		ch8.Thumbnail6()
+	case f.String() == "Crawl1" || f.String() == strings.ToLower("Crawl1"):
+		ch8.Crawl1()
+	case f.String() == "Crawl2" || f.String() == strings.ToLower("Crawl2"):
+		ch8.Crawl2()
+	case f.String() == "Crawl2b" || f.String() == strings.ToLower("Crawl2b"):
+		ch8.Crawl2b()
+	case f.String() == "Crawl3" || f.String() == strings.ToLower("Crawl3"):
+		ch8.Crawl3()
+	case f.String() == "Countdown1" || f.String() == strings.ToLower("Countdown1"):
+		ch8.Countdown1()
+	case f.String() == "Countdown2" || f.String() == strings.ToLower("Countdown2"):
+		ch8.Countdown2()
 	default:
 		log.Fatal("name does not match existing functions")
 	}

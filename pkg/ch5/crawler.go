@@ -19,14 +19,14 @@ func Crawler() {
 
 func crawl(url string) []string {
 	fmt.Printf("target url: \t %s \n\n\n", url)
-	list, err := extract(url)
+	list, err := Extract(url)
 	if err != nil {
 		log.Println(err)
 	}
 	return list
 }
 
-func extract(url string) ([]string, error) {
+func Extract(url string) ([]string, error) {
 	var links []string
 	response, err := http.Get(url)
 	if err != nil {
