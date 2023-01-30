@@ -48,6 +48,16 @@ func (f Function) Run() {
 		ch8.Countdown1()
 	case f.String() == "Countdown2" || f.String() == strings.ToLower("Countdown2"):
 		ch8.Countdown2()
+	case f.String() == "Countdown3" || f.String() == strings.ToLower("Countdown3"):
+		ch8.Countdown3()
+	case f.String() == "Du1" || f.String() == strings.ToLower("Du1"):
+		ch8.Du1()
+	case f.String() == "Du2" || f.String() == strings.ToLower("Du2"):
+		ch8.Du2()
+	case f.String() == "Du3" || f.String() == strings.ToLower("Du3"):
+		ch8.Du3()
+	case f.String() == "Du4" || f.String() == strings.ToLower("Du4"):
+		ch8.Du4()
 	default:
 		log.Fatal("name does not match existing functions")
 	}
