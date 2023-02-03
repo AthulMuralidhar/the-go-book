@@ -20,6 +20,8 @@ func (f Function) Run() {
 		ch5.Crawler()
 	case f.String() == "Reverb2" || f.String() == strings.ToLower("Reverb2"):
 		ch8.Reverb2()
+	case f.String() == "NetCat3a" || f.String() == strings.ToLower("NetCat3a"):
+		ch8.NetCat3a()
 	case f.String() == "NetCat3" || f.String() == strings.ToLower("NetCat3"):
 		ch8.NetCat3()
 	case f.String() == "ex8_3" || f.String() == "ex8.3":
@@ -58,6 +60,8 @@ func (f Function) Run() {
 		ch8.Du3()
 	case f.String() == "Du4" || f.String() == strings.ToLower("Du4"):
 		ch8.Du4()
+	case f.String() == "Chat1" || f.String() == strings.ToLower("Chat1"):
+		ch8.Chat1()
 	default:
 		log.Fatal("name does not match existing functions")
 	}
