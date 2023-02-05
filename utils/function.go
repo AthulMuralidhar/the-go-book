@@ -2,6 +2,8 @@ package utils
 
 import (
 	"github.com/AthulMuralidhar/the-go-book/pkg/ch5"
+	"github.com/AthulMuralidhar/the-go-book/pkg/ch9/bad_bank"
+	"github.com/AthulMuralidhar/the-go-book/pkg/ch9/bank2"
 	"log"
 	"strings"
 )
@@ -62,6 +64,10 @@ func (f Function) Run() {
 		ch8.Du4()
 	case f.String() == "Chat1" || f.String() == strings.ToLower("Chat1"):
 		ch8.Chat1()
+	case f.String() == "BadBank" || f.String() == strings.ToLower("BadBank"):
+		bad_bank.BadBank()
+	case f.String() == "Bank2" || f.String() == strings.ToLower("Bank2"):
+		bank2.Bank2()
 	default:
 		log.Fatal("name does not match existing functions")
 	}
