@@ -1,6 +1,9 @@
 package ch9
 
-import "testing"
+import (
+	"github.com/AthulMuralidhar/the-go-book/pkg/ch9/bank1"
+	"testing"
+)
 
 func Test_teller(t *testing.T) {
 	tests := []struct {
@@ -10,7 +13,7 @@ func Test_teller(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			teller()
+			bank1.teller()
 		})
 	}
 }
