@@ -42,3 +42,23 @@ func HttpGetBody(url string) (interface{}, error) {
 	defer resp.Body.Close()
 	return io.ReadAll(resp.Body)
 }
+
+func IncomingURLS() <-chan string {
+	ch := make(chan string)
+	go func() {
+		for _, url := range []string{
+			"https://golang.org",
+			"https://godoc.org",
+			"https://play.golang.org",
+			"http://gopl.io",
+			"https://golang.org",
+			"https://godoc.org",
+			"https://play.golang.org",
+			"http://gopl.io",
+		} {
+			ch <- url
+		}
+		close(ch)
+	}()
+	return ch
+}
